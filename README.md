@@ -1,12 +1,14 @@
 
 # Hollow Knight Discord Rich Presence Mod
 Hollow Knight Discord Rich Presence Mod (or Discord Custom Status) mod adds custom Hollow Knight In-Game Status to your discord activity.\
-This modification is for Hollow Knight __1.5__ or above.
-
+This modification is for Hollow Knight __1.5__ or above.\
+[Preview](https://i.ibb.co/qDj1b3T/presence.png)
 
 ## Feedback/Bug Reports/Suggestions
 
-If you have any feedback/suggestion or you've found a bug, reach me on Discord: __@Wysciguwka#8823__ or GitHub: [Wysciguvvka](https://www.github.com/Wysciguvvka)
+If you have any feedback/suggestion or you've found a bug, reach me on\
+Discord: __@Wysciguwka#8823__\
+GitHub: [Wysciguvvka](https://www.github.com/Wysciguvvka)
 
 
 ## Installation
@@ -53,7 +55,7 @@ UnityEngine.UIModule.dll
 ```
 to `HollowKnightDiscordRPC/references` folder.
 3. Build the solution using an IDE or `dotnet build`.
-4. The result will be in `bin/Release/HollowKnightDiscordRPC.dll`
+4. The result will be in `bin/Release/HollowKnightDiscordRPC.dll (or bin/debug/)`
 
 ## Authors
 
