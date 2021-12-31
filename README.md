@@ -54,8 +54,8 @@ UnityEngine.TextRenderingModule.dll
 UnityEngine.UI.dll
 UnityEngine.UIModule.dll
 ```
-to `HollowKnightDiscordRPC/references` folder.
-3. Build the solution using an IDE or `dotnet build`.
+to `HollowKnightDiscordRPC/references` folder.\
+3. Build the solution using an IDE or `dotnet build`.\
 4. The result will be in `bin/Release/HollowKnightDiscordRPC.dll (or bin/debug/)`
 
 ## Authors
