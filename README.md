@@ -15,7 +15,7 @@ GitHub: [Wysciguvvka](https://www.github.com/Wysciguvvka)
 ## Installation
 1. Install the [modding api](https://github.com/hk-modding/api) if you didn't do it yet.
 2. Download the latest Rich Presence Mod release from [here] or compile it by yourself.
-3. Extract the .zip file and put __HollowKnightDiscordRPC__ in your mods folder 
+3. Extract the .zip file and put __HollowKnightDiscordRPC__ folder in your mods folder 
 (Usually):
 
 ``` 
@@ -27,10 +27,9 @@ or:
 ```
 {Your Hollow Knight installation}/hollow_knight_Data/Managed/Mods/
 ```
-4. Put the Plugins folder in:
-(if you compiled the code by yourself, download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) Put x86 and x86_64 folders into Plugins)
+4. download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) and copy the `x86` and `x86_64` into Plugins folder:
 ```
-{Your Hollow Knight installation}/hollow_knight_Data/
+{Your Hollow Knight installation}/hollow_knight_Data/Plugins
 ```
 5. Launch Hollow Knight and enjoy your custom Discord In-Game status
 ## How To Use
