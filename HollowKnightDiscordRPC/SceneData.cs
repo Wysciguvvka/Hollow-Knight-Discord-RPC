@@ -147,7 +147,7 @@ namespace HollowKnightDiscordRPC {
             {"Grimm_Divine", new string[3] {"Dirtmouth - Divine's Tent", "Dirtmouth", "dirtmouth"}},
             {"Grimm_Main_Tent", new string[3] { "Dirtmouth - Grimm", "Dirtmouth", "dirtmouth"}},
             {"Grimm_Nightmare", new string[3] { "Nightmare King Grimm", "Dirtmouth", "dirtmouth"}},
-            {"Dream_Nailcollection", new string[3] { "Dream Realm - Forgotten Dream,", "Dream Realm", "dream"}},
+            {"Dream_Nailcollection", new string[3] { "Dream Realm - Forgotten Dream", "Dream Realm", "dream"}},
             {"Dream_01_False_Knight", new string[3] { "Dream Realm - False Knight", "Dream Realm", "dream"}},
             {"Dream_02_Mage_Lord", new string[3] { "Dream Realm - Soul Tyrant", "Dream Realm", "dream"}},
             {"Dream_03_Infected_Knight", new string[3] { "Dream Realm - Lost Kin", "Dream Realm", "dream"}},
