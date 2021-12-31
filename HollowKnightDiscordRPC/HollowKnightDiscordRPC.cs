@@ -30,7 +30,7 @@ namespace HollowKnightDiscordRPC {
             { "essence" , 0 },
         };
         public override string GetVersion() {
-            return "1.5.3";
+            return "1.5.4";
         }
         public void OnLoadGlobal(RPCGlobalSettings s) {
             GlobalSettings = s;
@@ -101,6 +101,19 @@ namespace HollowKnightDiscordRPC {
                                     Text = "Shows your current location"
                                 }
                             }, out var showCurrentArea)
+                        .AddHorizontalOption(
+                            "ShowSmallImage",
+                            new HorizontalOptionConfig {
+                                Label = "Show Small Image",
+                                Options = new[] { "Off", "On" },
+                                ApplySetting = (_, i) => { GlobalSettings.ShowSmallImage = Convert.ToBoolean(i); },
+                                RefreshSetting = (s, _) => s.optionList.SetOptionTo(Convert.ToInt32(GlobalSettings.ShowSmallImage)),
+                                CancelAction = cancelAction,
+                                Style = HorizontalOptionStyle.VanillaStyle,
+                                Description = new DescriptionInfo {
+                                    Text = "Shows small image (area). (Won't show when location is turned off)"
+                                }
+                            }, out var showSmallImage)
                         .AddHorizontalOption(
                             "ShowMode",
                             new HorizontalOptionConfig {
@@ -238,6 +251,7 @@ namespace HollowKnightDiscordRPC {
                                     GlobalSettings.ShowResting = true;
                                     GlobalSettings.ShowPause = true;
                                     GlobalSettings.HideEverything = false;
+                                    GlobalSettings.ShowSmallImage = true;
                                     showCurrentArea.menuSetting.RefreshValueFromGameSettings();
                                     showGameMode.menuSetting.RefreshValueFromGameSettings();
                                     showTimePlayed.menuSetting.RefreshValueFromGameSettings();
@@ -247,6 +261,7 @@ namespace HollowKnightDiscordRPC {
                                     playerStats04.menuSetting.RefreshValueFromGameSettings();
                                     showResting.menuSetting.RefreshValueFromGameSettings();
                                     showPause.menuSetting.RefreshValueFromGameSettings();
+                                    showSmallImage.menuSetting.RefreshValueFromGameSettings();
                                 },
                                 CancelAction = cancelAction,
                                 Style = MenuButtonStyle.VanillaStyle
@@ -261,7 +276,7 @@ namespace HollowKnightDiscordRPC {
                         playerStats04.menuSetting.RefreshValueFromGameSettings();
                         showResting.menuSetting.RefreshValueFromGameSettings();
                         showPause.menuSetting.RefreshValueFromGameSettings();
-
+                        showSmallImage.menuSetting.RefreshValueFromGameSettings();
                         toggleModOption.GetComponent<MenuSetting>().RefreshValueFromGameSettings();
                     })
                 )
@@ -356,7 +371,7 @@ namespace HollowKnightDiscordRPC {
                         }
                         currentScene = SceneData.GetSceneArea(currentScene);
                     }
-                    else {
+                    if (!GlobalSettings.ShowSmallImage || !GlobalSettings.ShowCurrentArea) {
                         activity.Assets.SmallImage = null;
                         activity.Assets.SmallText = null;
                     }

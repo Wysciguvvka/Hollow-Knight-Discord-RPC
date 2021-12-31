@@ -1,6 +1,8 @@
 ﻿namespace HollowKnightDiscordRPC {
     public class RPCGlobalSettings {
+        public bool HideEverything = false;
         public bool ShowCurrentArea = true;
+        public bool ShowSmallImage = true;
         public bool ShowMode = true;
         public int TimePlayedMode = 1; // 0 - hide 1 - partial 2 - total
         public int PlayerStatus01 = 1; // health
@@ -9,7 +11,8 @@
         public int PlayerStatus04 = 0; // none
         public bool ShowResting = true;
         public bool ShowPause = true;
-        public bool HideEverything = false;
+        
+        
         /*
         // description in settings duh
         public string[] names = {
