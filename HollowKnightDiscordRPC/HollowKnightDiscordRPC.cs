@@ -425,6 +425,7 @@ namespace HollowKnightDiscordRPC {
             obj.AddComponent<Updater>().RegisterMod(this);
             UnityEngine.Object.DontDestroyOnLoad(obj);
             // UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneLoaded;
+            InitDiscord();
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
             ModHooks.SetPlayerBoolHook += OnSetPlayerBool;
             ModHooks.SetPlayerIntHook += PlayerIntSet;
@@ -442,9 +443,13 @@ namespace HollowKnightDiscordRPC {
             }
         }
         public void Unload() {
-            discord?.Dispose();
             GameObject.DestroyImmediate(obj);
+            discord?.Dispose();
             discord = null;
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnSceneChanged;
+            ModHooks.SetPlayerBoolHook -= OnSetPlayerBool;
+            ModHooks.SetPlayerIntHook -= PlayerIntSet;
+            ModHooks.HeroUpdateHook -= OnHeroUpdate;
         }
         private void OnHeroUpdate() {
             try {
