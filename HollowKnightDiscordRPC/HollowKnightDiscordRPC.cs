@@ -492,10 +492,14 @@ namespace HollowKnightDiscordRPC {
             UpdatePlayerActivityData();
         }
         private void InitDiscord() {
-            discord?.Dispose();
-            discord = new Discord.Discord(925354823304507433, (System.UInt64)CreateFlags.NoRequireDiscord);
-            activityManager = discord.GetActivityManager();
-            UpdatePlayerActivityData();
+            // discord?.Dispose();
+            try {
+                discord?.Dispose();
+                discord = new Discord.Discord(925354823304507433, (System.UInt64)CreateFlags.NoRequireDiscord);
+                activityManager = discord.GetActivityManager();
+                UpdatePlayerActivityData();
+            }
+            catch { return; }
         }
 
     }
