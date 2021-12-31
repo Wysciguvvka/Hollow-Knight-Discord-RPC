@@ -348,12 +348,13 @@ namespace HollowKnightDiscordRPC {
                     string action = null;
                     string gameState = null;
                     if (GlobalSettings.ShowCurrentArea) {
-                        currentScene = SceneData.GetSceneArea(GameManager.instance.GetSceneNameString());
-                        string areaName = SceneData.GetAreaName(GameManager.instance.GetSceneNameString());
-                        if (!SceneData.IsInExcludedScenes(GameManager.instance.GetSceneNameString())) {
-                            activity.Assets.SmallImage = SceneData.GetSceneImage(GameManager.instance.GetSceneNameString());
+                        currentScene = GameManager.instance.GetSceneNameString();
+                        string areaName = SceneData.GetAreaName(currentScene);
+                        if (!SceneData.IsInExcludedScenes(currentScene)) {
+                            activity.Assets.SmallImage = SceneData.GetSceneImage(currentScene);
                             activity.Assets.SmallText = areaName;
                         }
+                        currentScene = SceneData.GetSceneArea(currentScene);
                     }
                     else {
                         activity.Assets.SmallImage = null;
