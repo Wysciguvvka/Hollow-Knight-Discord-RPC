@@ -11,7 +11,7 @@ namespace HollowKnightDiscordRPC {
             {"PermaDeath", new string[3] {"", "Hollow Knight", ""}},
             {"Prologue_Excerpt", new string[3] {"", "Hollow Knight", ""}},
             {"Menu_Title", new string[3] {"Loading", "Hollow Knight", ""}},
-            {"Cinematic_Stag_travel", new string[3] {"Fast Travel", "Hollow Knight", "travel"}},
+            {"Cinematic_Stag_travel", new string[3] {"Fast Travel", "Travelling", "travel"}},
             {"Cinematic_Ending_A", new string[3] {"Hollow Knight", "Hollow Knight", ""}},
             {"Cinematic_Ending_B", new string[3] {"Sealed Siblings", "Hollow Knight", ""}},
             {"Cinematic_Ending_C", new string[3] {"Dream No More", "Hollow Knight", ""}},
@@ -36,7 +36,7 @@ namespace HollowKnightDiscordRPC {
             {"Abyss_19", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
             {"Abyss_20", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
             {"Abyss_21", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
-            {"Abyss_22", new string[3] { "Ancient Basin - Hidden Station", "Ancient Basin", "city"}},
+            {"Abyss_22", new string[3] { "Ancient Basin - Hidden Station", "Ancient Basin", "basin"}},
             {"Room_nailsmith", new string[3] { "City of Tears - Nailsmith's Hut", "City of Tears", "city"}},
             {"Ruins_House_01", new string[3] { "City of Tears", "City of Tears", "city"}},
             {"Ruins_House_02", new string[3] { "City of Tears", "City of Tears", "city"}},
@@ -488,7 +488,7 @@ namespace HollowKnightDiscordRPC {
             {"PermaDeath", false},
             {"Prologue_Excerpt", true},
             {"Menu_Title", true},
-            {"Cinematic_Stag_travel", true},
+            {"Cinematic_Stag_travel", false },
             {"Cinematic_Ending_A", true},
             {"Cinematic_Ending_B", true},
             {"Cinematic_Ending_C", true},
@@ -503,7 +503,7 @@ namespace HollowKnightDiscordRPC {
             {"Quit_To_Menu", true},
         };
         /*
-        // Sly's shop and Bretta's House return crossroads instead of dirtmouth... (the only reason i did not use that dict)
+        // Sly's shop and Bretta's House return crossroads instead of dirtmouth... (the only reason i did not use that dict below)
         public static Dictionary<string, string> areas = new Dictionary<string, string>(){
             {"NONE",""},
             {"TEST_AREA","Test area"},
@@ -532,7 +532,7 @@ namespace HollowKnightDiscordRPC {
             {"QUEENS_STATION","Queen's Station"},
             {"OUTSKIRTS","Kingdom's Edge"},
             {"KINGS_STATION","King's Station"},
-            {"MAGE_TOWER","Soul Master"}, // ?
+            {"MAGE_TOWER","Soul Sanctum"}, // ?
             {"TRAM_UPPER","Tram"},
             {"TRAM_LOWER","Tram"},
             {"FINAL_BOSS","The Hollow Knight"},
@@ -567,18 +567,6 @@ namespace HollowKnightDiscordRPC {
                 if (!string.IsNullOrEmpty(scene)) return scene;
                 return "Unknown Scene";
             }
-            /*
-            try {
-                if (scenes.ContainsKey(scene)) {
-                    if (scenes[scene] != "" && areas[area] != "") return (areas[area] + " - " + scenes[scene]);
-                    if (scenes[scene] != "") return scenes[scene];
-                }
-                return areas[area];
-            }
-            catch {
-                return area;
-            }
-            */
         }
         public static bool IsInExcludedScenes(string scene) {
             try {
