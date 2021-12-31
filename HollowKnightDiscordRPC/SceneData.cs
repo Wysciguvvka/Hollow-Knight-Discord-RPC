@@ -27,9 +27,8 @@ namespace HollowKnightDiscordRPC {
             // scenes sorted by area
             {"Abyss_02", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
             {"Abyss_03", new string[3] { "Ancient Basin - Tram Station", "Ancient Basin", "basin"}},
-            {"Abyss_04", new string[3] { "Ancient Basin", "Ancient Basin", ""}},
+            {"Abyss_04", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
             {"Abyss_05", new string[3] { "Ancient Basin - Palace Grounds", "Ancient Basin", "basin"}},
-            {"Abyss_06_Core", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
             {"Abyss_16", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
             {"Abyss_17", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
             {"Abyss_18", new string[3] { "Ancient Basin", "Ancient Basin", "basin"}},
@@ -376,6 +375,7 @@ namespace HollowKnightDiscordRPC {
             {"Waterways_13", new string[3] { "Royal Waterways - Isma's Grove", "Royal Waterways", "waterways"}},
             {"Waterways_14", new string[3] { "Royal Waterways", "Royal Waterways", "waterways"}},
             {"Waterways_15", new string[3] { "Royal Waterways - Ogrim's Cave", "Royal Waterways", "waterways"}},
+            {"Abyss_06_Core", new string[3] { "The Abyss", "The Abyss", "abyss"}},
             {"Abyss_08", new string[3] { "The Abyss - Lifeblood Core", "The Abyss", "abyss"}},
             {"Abyss_09", new string[3] { "The Abyss", "The Abyss", "abyss"}},
             {"Abyss_10", new string[3] {"The Abyss", "The Abyss", "abyss"}},
