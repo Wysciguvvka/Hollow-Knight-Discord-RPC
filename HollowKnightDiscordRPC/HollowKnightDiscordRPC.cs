@@ -481,12 +481,6 @@ namespace HollowKnightDiscordRPC {
             if (target == "disablePause") UpdatePlayerActivityData();
             return val;
         }
-        /*
-        private void SceneLoaded(UnityEngine.SceneManagement.Scene targetArea, UnityEngine.SceneManagement.LoadSceneMode loadMode) {
-            elapsedTime = DateTime.UtcNow; // move to OnSceneChanged?
-            // UpdatePlayerActivityData();
-        }
-        */
         private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to) {
             elapsedTime = DateTime.UtcNow;
             UpdatePlayerActivityData();
