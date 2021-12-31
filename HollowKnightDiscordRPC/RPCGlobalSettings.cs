@@ -4,11 +4,11 @@
         public bool ShowCurrentArea = true;
         public bool ShowSmallImage = true;
         public bool ShowMode = true;
-        public int TimePlayedMode = 1; // 0 - hide 1 - partial 2 - total
-        public int PlayerStatus01 = 1; // health
-        public int PlayerStatus02 = 2; // ???
-        public int PlayerStatus03 = 3; // ????
-        public int PlayerStatus04 = 0; // none
+        public int TimePlayedMode = 1; 
+        public int PlayerStatus01 = 1; 
+        public int PlayerStatus02 = 2;
+        public int PlayerStatus03 = 3;
+        public int PlayerStatus04 = 0;
         public bool ShowResting = true;
         public bool ShowPause = true;
         
