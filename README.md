@@ -14,7 +14,7 @@ GitHub: [Wysciguvvka](https://www.github.com/Wysciguvvka)
 
 ## Installation
 1. Install the [modding api](https://github.com/hk-modding/api) if you didn't do it yet.
-2. Download the latest Rich Presence Mod release from [here] or compile it by yourself.
+2. Download the latest Rich Presence Mod release from [here](https://github.com/Wysciguvvka/Hollow-Knight-Discord-RPC/releases) or compile it by yourself.
 3. Extract the .zip file and copy the __HollowKnightDiscordRPC__ folder into mods folder
 (Usually):
 
