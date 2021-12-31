@@ -36,7 +36,7 @@ or:
 Launch Hollow Knight after installation.\
 If you opened Discord after launching Hollow Knight, it might take a few seconds to display custom status.
 The mod will not work with the Discord browser client.\
-If you want to customize the mod, then navigate to Settings > Mods > Discord Rich Presence.
+If you want to customize the mod, then navigate to Settings > Mods > Rich Presence.
 
 
 ## How to build
