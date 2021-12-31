@@ -7,9 +7,8 @@ This modification is for Hollow Knight __1.5__ or above.\
 
 ## Feedback/Bug Reports/Suggestions
 
-If you have any feedback/suggestion or you've found a bug, reach me on\
-Discord: __@Wysciguwka#8823__\
-GitHub: [Wysciguvvka](https://www.github.com/Wysciguvvka)
+If you have any feedback/suggestion or you've found a bug, please reach me on\
+Discord: __@Wysciguwka#8823__
 
 
 ## Installation
@@ -44,7 +43,7 @@ If you want to customize the mod, then navigate to Settings > Mods > Discord Ric
 
 To build the mod by yourself:
 1. Clone the repository
-2. From Hollow_Knight_Data folder copy:
+2. `From Hollow_Knight_Data` folder (in your Hollow Knight installation) copy:
 ```
 Assembly-CSharp.dll
 UnityEngine.CoreModule.dll
