@@ -286,14 +286,6 @@ namespace HollowKnightDiscordRPC {
                 .Build();
             return this.screen;
         }
-        private string GetRPCState() {
-            string RPCState = null;
-            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus01)}";
-            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus02)}";
-            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus03)}";
-            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus04)}";
-            return RPCState.Trim('|', ' ');
-        }
         private string GetRPCPlayerStatus(int statID) {
             string combinedState = null;
             switch (statID) {
@@ -331,9 +323,17 @@ namespace HollowKnightDiscordRPC {
             }
             return !string.IsNullOrEmpty(combinedState) ? $"{combinedState} | " : null; // delim
         }
+        private string GetRPCState() {
+            string RPCState = null;
+            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus01)}";
+            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus02)}";
+            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus03)}";
+            RPCState += $"{GetRPCPlayerStatus(GlobalSettings.PlayerStatus04)}";
+            return RPCState.Trim('|', ' ');
+        }
         private void UpdatePlayerActivityData() {
             if (HeroController.instance != null) {
-                // todo: pantheon bindings, boss info (radiant, etc if in hog)
+                // todo: pantheon bindings, boss info
                 // CheckGGBossLevel?
                 // todo: find a better way to detect game mode
                 if (!GlobalSettings.HideEverything) {
