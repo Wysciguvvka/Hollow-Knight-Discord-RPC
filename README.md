@@ -26,7 +26,7 @@ or:
 ```
 {Your Hollow Knight installation}/hollow_knight_Data/Managed/Mods/
 ```
-4. download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) and copy the `x86` and `x86_64` into Plugins folder:
+4. download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) and copy the `x86` and `x86_64` folders from the `lib` folder into:
 ```
 {Your Hollow Knight installation}/hollow_knight_Data/Plugins
 ```
