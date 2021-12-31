@@ -427,7 +427,6 @@ namespace HollowKnightDiscordRPC {
             // UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneLoaded;
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
             ModHooks.SetPlayerBoolHook += OnSetPlayerBool;
-            ModHooks.SoulGainHook += GainSoul;
             ModHooks.SetPlayerIntHook += PlayerIntSet;
             ModHooks.HeroUpdateHook += OnHeroUpdate;
         }
@@ -471,10 +470,6 @@ namespace HollowKnightDiscordRPC {
             if (target == "maxHealth") { playerDictData["maxhealth"] = val; UpdatePlayerActivityData(); } //health regens when acquired new mask (afaik) so probably not needed - chceck pls?
             if (target == "grubsCollected") { playerDictData["grubs"] = val; UpdatePlayerActivityData(); }
             return val;
-        }
-        private int GainSoul(int amount) {
-            //UpdatePlayerActivityData();
-            return amount;
         }
         private bool OnSetPlayerBool(string target, bool val) {
             if (target == "atBench") UpdatePlayerActivityData();
