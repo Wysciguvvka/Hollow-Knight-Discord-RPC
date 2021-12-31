@@ -61,7 +61,7 @@ to `HollowKnightDiscordRPC/references` folder.\
 - [Wysciguvvka](https://www.github.com/Wysciguvvka)
 
 
-## Appendix
+#### Disclaimer
 
 That was my first time coding in C#, so the code might not be excellent.\
 I will appreciate any code reviews/feedback/whatever
