@@ -31,11 +31,29 @@ or:
 ```
 5. Launch Hollow Knight and enjoy your custom Discord In-Game status
 ## How To Use
+
 Launch Hollow Knight after installation.\
 If you opened Discord after launching Hollow Knight, it might take a few seconds to display custom status.
 The mod will not work with the Discord browser client.\
 If you want to customize the mod, then navigate to Settings > Mods > Discord Rich Presence.
 
+
+## Compilation
+
+To build the mod by yourself:
+1. Clone the repository
+2. From Hollow_Knight_Data folder copy:
+```
+Assembly-CSharp.dll
+UnityEngine.CoreModule.dll
+UnityEngine.dll
+UnityEngine.TextRenderingModule.dll
+UnityEngine.UI.dll
+UnityEngine.UIModule.dll
+```
+to `HollowKnightDiscordRPC/references` folder.
+3. Build the solution using an IDE or `dotnet build`.
+4. The result will be in `bin/Release/HollowKnightDiscordRPC.dll`
 
 ## Authors
 
