@@ -333,7 +333,6 @@ namespace HollowKnightDiscordRPC {
         }
         private void UpdatePlayerActivityData() {
             if (HeroController.instance != null) {
-                Log("interval");
                 // todo: pantheon bindings, boss info (radiant, etc if in hog)
                 // CheckGGBossLevel?
                 // todo: find a better way to detect game mode
@@ -352,7 +351,7 @@ namespace HollowKnightDiscordRPC {
                         currentScene = SceneData.GetSceneArea(GameManager.instance.GetSceneNameString());
                         string areaName = SceneData.GetAreaName(GameManager.instance.GetSceneNameString());
                         if (!SceneData.IsInExcludedScenes(GameManager.instance.GetSceneNameString())) {
-                            activity.Assets.SmallImage = SceneData.GetSceneImage(currentScene);
+                            activity.Assets.SmallImage = SceneData.GetSceneImage(GameManager.instance.GetSceneNameString());
                             activity.Assets.SmallText = areaName;
                         }
                     }
