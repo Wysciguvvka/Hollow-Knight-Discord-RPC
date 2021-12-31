@@ -40,7 +40,7 @@ The mod will not work with the Discord browser client.\
 If you want to customize the mod, then navigate to Settings > Mods > Discord Rich Presence.
 
 
-## Compilation
+## How to build
 
 To build the mod by yourself:
 1. Clone the repository
