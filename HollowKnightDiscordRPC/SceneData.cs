@@ -590,7 +590,7 @@ namespace HollowKnightDiscordRPC {
                 return sceneData[scene][2];
             }
             catch {
-                return "classic";
+                return "null";
             }
         }
     }

@@ -74,9 +74,8 @@ namespace HollowKnightDiscordRPC {
                                         Offset = new Vector2(-310f, 0f)
                                     },
                                 },
-                                new RelLength(1365f),
+                                new RelLength(1580f),
                                 RegularGridLayout.CreateVerticalLayout(105f),
-
                     c => {
                         c.AddHorizontalOption(
                             "ToggleModOption",
@@ -236,6 +235,19 @@ namespace HollowKnightDiscordRPC {
                                     Text = "Shows whether game is paused"
                                 }
                             }, out var showPause)
+                        .AddHorizontalOption(
+                            "HideEverything",
+                            new HorizontalOptionConfig {
+                                Label = "Hide Everything",
+                                Options = new[] { "Off", "On" },
+                                ApplySetting = (_, i) => { GlobalSettings.HideEverything = Convert.ToBoolean(i); },
+                                RefreshSetting = (s, _) => s.optionList.SetOptionTo(Convert.ToInt32(GlobalSettings.HideEverything)),
+                                CancelAction = cancelAction,
+                                Style = HorizontalOptionStyle.VanillaStyle,
+                                Description = new DescriptionInfo {
+                                    Text = "Hides In-Game stats and events"
+                                }
+                            }, out var hideEverything)
                         .AddMenuButton(
                             "LoadTriggersButton",
                             new MenuButtonConfig {
@@ -262,6 +274,7 @@ namespace HollowKnightDiscordRPC {
                                     showResting.menuSetting.RefreshValueFromGameSettings();
                                     showPause.menuSetting.RefreshValueFromGameSettings();
                                     showSmallImage.menuSetting.RefreshValueFromGameSettings();
+                                    hideEverything.menuSetting.RefreshValueFromGameSettings();
                                 },
                                 CancelAction = cancelAction,
                                 Style = MenuButtonStyle.VanillaStyle
@@ -277,6 +290,7 @@ namespace HollowKnightDiscordRPC {
                         showResting.menuSetting.RefreshValueFromGameSettings();
                         showPause.menuSetting.RefreshValueFromGameSettings();
                         showSmallImage.menuSetting.RefreshValueFromGameSettings();
+                        hideEverything.menuSetting.RefreshValueFromGameSettings();
                         toggleModOption.GetComponent<MenuSetting>().RefreshValueFromGameSettings();
                     })
                 )
@@ -328,10 +342,10 @@ namespace HollowKnightDiscordRPC {
                     combinedState = $"Essence: {playerDictData["essence"]}";
                     break;
                 case 8:
-                    if (GameManager.instance.playerData.overcharmed) { combinedState = $"Hunter's Mark"; }
+                    if (GameManager.instance.playerData.hasHuntersMark) { combinedState = $"Hunter's Mark"; }
                     break;
                 case 9:
-                    if (GameManager.instance.playerData.hasHuntersMark) { combinedState = $"Overcharmed"; }
+                    if (GameManager.instance.playerData.overcharmed) { combinedState = $"Overcharmed"; }
                     break;
                 default:
                     break;
@@ -380,7 +394,7 @@ namespace HollowKnightDiscordRPC {
                     activity.Details = $"{currentScene}{action}";
                     activity.State = GetRPCState();
                     activity.Assets.LargeText = $"{mode}{gameState}";
-                    activity.Assets.LargeImage = largeImage; // todo: change
+                    activity.Assets.LargeImage = largeImage;
                     activity.Timestamps = new ActivityTimestamps();
                     if (GlobalSettings.TimePlayedMode == 1 && !SceneData.IsInExcludedScenes(GameManager.instance.GetSceneNameString())) {
                         var elapsed = Math.Abs((elapsedTime - new DateTime(1970, 1, 1)).TotalSeconds);
