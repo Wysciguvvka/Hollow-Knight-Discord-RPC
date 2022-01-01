@@ -3,7 +3,7 @@
 Hollow Knight Discord Rich Presence Mod (or Discord Custom Status mod) adds custom Hollow Knight In-Game Status to your discord activity.\
 This modification is for Hollow Knight __1.5__ or above.\
 \
-![Preview](https://i.ibb.co/qDj1b3T/presence.png)
+![Preview](/Previews/presence.png)
 
 ## Feedback/Bug Reports/Suggestions
 
@@ -56,10 +56,28 @@ to `HollowKnightDiscordRPC/references` folder.\
 3. Build the solution using an IDE or `dotnet build`.\
 4. The result will be in `bin/Release/HollowKnightDiscordRPC.dll (or bin/debug/)`
 
+## Mod Preview
+
+###### In Menu Status:
+![Menu](/Previews/menu.png)
+###### Classic Mode:
+![Classic Mode](/Previews/presence.png)
+###### Steel Soul Mode:
+![Steel Soul Mode](/Previews/steel.png)
+###### Godseeker Mode:
+![Godseeker Mode](/Previews/godseeker.png)
+###### Customization:
+![Customization](/Previews/others.png)
+###### Stag Travel Status:
+![Stag Travel](/Previews/travel.png)
+###### Hide Everything option:
+![Hide Everything](/Previews/hide.png)
+###### Settings:
+![Settings](/Previews/settings.jpg)
+
 ## Authors
 
 - [Wysciguvvka](https://www.github.com/Wysciguvvka)
-
 
 #### Disclaimer
 
