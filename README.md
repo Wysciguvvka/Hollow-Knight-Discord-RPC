@@ -26,7 +26,7 @@ or:
 ```
 {Your Hollow Knight installation}/hollow_knight_Data/Managed/Mods/
 ```
-5. Launch Hollow Knight and enjoy your custom Discord In-Game status
+4. Launch Hollow Knight and enjoy your custom Discord In-Game status
 ## How To Use
 
 Launch Hollow Knight after installation.\
