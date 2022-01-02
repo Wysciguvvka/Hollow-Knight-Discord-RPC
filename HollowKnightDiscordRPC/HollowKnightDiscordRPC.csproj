@@ -72,14 +72,22 @@
     <Compile Include="Assets\DiscordGameSDK\LobbyManager.cs" />
     <Compile Include="Assets\DiscordGameSDK\StorageManager.cs" />
     <Compile Include="Assets\DiscordGameSDK\StoreManager.cs" />
+    <Compile Include="Extractor.cs" />
     <Compile Include="SceneData.cs" />
     <Compile Include="HollowKnightDiscordRPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RPCGlobalSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Plugins\x86\discord-rpc.dll" />
-    <Content Include="Assets\Plugins\x86_64\discord-rpc.dll" />
+    <EmbeddedResource Include="Assets\Plugins\x86\discord_game_sdk.dll" />
+    <EmbeddedResource Include="Assets\Plugins\x86_64\discord_game_sdk.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Plugins\x86\discord_game_sdk.dll.lib" />
+    <EmbeddedResource Include="Assets\Plugins\x86_64\discord_game_sdk.bundle" />
+    <EmbeddedResource Include="Assets\Plugins\x86_64\discord_game_sdk.dll.lib" />
+    <EmbeddedResource Include="Assets\Plugins\x86_64\discord_game_sdk.dylib" />
+    <EmbeddedResource Include="Assets\Plugins\x86_64\discord_game_sdk.so" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using Discord;
 using GlobalEnums;
 using Modding;
@@ -35,7 +37,7 @@ namespace HollowKnightDiscordRPC {
         private string currentBossName;
         private readonly List<GameObject> bosses = new List<GameObject>();
         public override string GetVersion() {
-            return "1.5.5";
+            return "1.5.6";
         }
         public void OnLoadGlobal(RPCGlobalSettings s) {
             GlobalSettings = s;
@@ -476,7 +478,28 @@ namespace HollowKnightDiscordRPC {
                 discord = null;
             }
         }
+        public void ExtractResourceToFile(string resourceName, string filename) {
+            if (!File.Exists(filename)) {
+                using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                using (FileStream fs = new FileStream(filename, FileMode.Create)) {
+                    byte[] b = new byte[s.Length];
+                    s.Read(b, 0, b.Length);
+                    fs.Write(b, 0, b.Length);
+                }
+            }
+        }
         public override void Initialize() {
+            // foreach dll name if not exsist then install
+            if (!Directory.Exists(".\\hollow_knight_Data\\Plugins")) Directory.CreateDirectory(".\\hollow_knight_Data\\Plugins");
+            if (!Directory.Exists(".\\hollow_knight_Data\\Plugins\\x86_64")) Directory.CreateDirectory(".\\hollow_knight_Data\\Plugins\\x86_64");
+            if (!Directory.Exists(".\\hollow_knight_Data\\Plugins\\x86")) Directory.CreateDirectory(".\\hollow_knight_Data\\Plugins\\x86");
+            ExtractResourceToFile("HollowKnightDiscordRPC.Assets.Plugins.x86.discord_game_sdk.dll", ".\\hollow_knight_Data\\Plugins\\x86\\discord_game_sdk.dll");
+            ExtractResourceToFile("HollowKnightDiscordRPC.Assets.Plugins.x86.discord_game_sdk.dll.lib", ".\\hollow_knight_Data\\Plugins\\x86\\discord_game_sdk.dll.lib");
+            ExtractResourceToFile("HollowKnightDiscordRPC.Assets.Plugins.x86_64.discord_game_sdk.dll", ".\\hollow_knight_Data\\Plugins\\x86_64\\discord_game_sdk.dll");
+            ExtractResourceToFile("HollowKnightDiscordRPC.Assets.Plugins.x86_64.discord_game_sdk.dll.lib", ".\\hollow_knight_Data\\Plugins\\x86_64\\discord_game_sdk.dll.lib");
+            ExtractResourceToFile("HollowKnightDiscordRPC.Assets.Plugins.x86_64.discord_game_sdk.bundle", ".\\hollow_knight_Data\\Plugins\\x86_64\\discord_game_sdk.bundle");
+            ExtractResourceToFile("HollowKnightDiscordRPC.Assets.Plugins.x86_64.discord_game_sdk.dylib", ".\\hollow_knight_Data\\Plugins\\x86_64\\discord_game_sdk.dylib");
+            ExtractResourceToFile("HollowKnightDiscordRPC.Assets.Plugins.x86_64.discord_game_sdk.so", ".\\hollow_knight_Data\\Plugins\\x86_64\\discord_game_sdk.so");
             obj = new GameObject();
             obj.AddComponent<Updater>().RegisterMod(this);
             UnityEngine.Object.DontDestroyOnLoad(obj);
