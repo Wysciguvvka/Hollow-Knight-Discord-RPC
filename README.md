@@ -66,6 +66,8 @@ to `HollowKnightDiscordRPC/references` folder.\
 ![Steel Soul Mode](/Previews/steel.png)
 ###### Godseeker Mode:
 ![Godseeker Mode](/Previews/godseeker.png)
+###### Boss Health:
+![Customization](/Previews/bosshp.png)
 ###### Customization:
 ![Customization](/Previews/others.png)
 ###### Stag Travel Status:
