@@ -26,10 +26,6 @@ or:
 ```
 {Your Hollow Knight installation}/hollow_knight_Data/Managed/Mods/
 ```
-4. download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) and copy the `x86` and `x86_64` folders from the `lib` folder into:
-```
-{Your Hollow Knight installation}/hollow_knight_Data/Plugins
-```
 5. Launch Hollow Knight and enjoy your custom Discord In-Game status
 ## How To Use
 
@@ -53,8 +49,9 @@ UnityEngine.UI.dll
 UnityEngine.UIModule.dll
 ```
 to `HollowKnightDiscordRPC/references` folder.\
-3. Build the solution using an IDE or `dotnet build`.\
-4. The result will be in `bin/Release/HollowKnightDiscordRPC.dll (or bin/debug/)`
+3. download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) and copy the `x86` and `x86_64` folders into `Assets/Plugins`
+4. Build the solution using an IDE or `dotnet build`.\
+5. The result will be in `bin/Release/HollowKnightDiscordRPC.dll (or bin/debug/)`
 
 ## Mod Preview
 
