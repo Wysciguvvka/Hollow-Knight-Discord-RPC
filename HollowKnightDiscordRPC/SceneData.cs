@@ -145,8 +145,8 @@ namespace HollowKnightDiscordRPC {
             {"Room_Ouiji", new string[3] { "Dirtmouth - Jiji's Room", "Dirtmouth", "dirtmouth"}},
             {"Room_Jinn", new string[3] { "Dirtmouth - Jinn's Cave", "Dirtmouth", "dirtmouth"}},
             {"Grimm_Divine", new string[3] {"Dirtmouth - Divine's Tent", "Dirtmouth", "dirtmouth"}},
-            {"Grimm_Main_Tent", new string[3] { "Dirtmouth - Grimm", "Dirtmouth", "dirtmouth"}},
-            {"Grimm_Nightmare", new string[3] { "Nightmare King Grimm", "Dirtmouth", "dirtmouth"}},
+            {"Grimm_Main_Tent", new string[3] { "Grimm's Tent", "Dirtmouth", "dirtmouth"}},
+            {"Grimm_Nightmare", new string[3] { "Grimm's Tent", "Dream Realm", "dream"}},
             {"Dream_Nailcollection", new string[3] { "Dream Realm - Forgotten Dream", "Dream Realm", "dream"}},
             {"Dream_01_False_Knight", new string[3] { "Dream Realm - False Knight", "Dream Realm", "dream"}},
             {"Dream_02_Mage_Lord", new string[3] { "Dream Realm - Soul Tyrant", "Dream Realm", "dream"}},
@@ -160,6 +160,7 @@ namespace HollowKnightDiscordRPC {
             {"Dream_Room_Believer_Shrine", new string[3] { "Dream Realm - Shrine of Believers", "Dream Realm", "dream"}},
             {"Dream_Abyss", new string[3] { "Dream Realm - Birthplace ", "Dream Realm", "dream"}},
             {"Dream_Final_Boss", new string[3] { "The Radiance", "Dream Realm", "dream"}},
+            {"Dream_Final", new string[3] { "The Radiance", "Dream Realm", "dream"}},
             {"Fungus3_01", new string[3] { "Fog Canyon", "Fog Canyon", "canyon"}},
             {"Fungus3_02", new string[3] { "Fog Canyon", "Fog Canyon", "canyon"}},
             {"Fungus3_03", new string[3] { "Fog Canyon", "Fog Canyon", "canyon"}},
@@ -559,6 +560,114 @@ namespace HollowKnightDiscordRPC {
             {"GODSEEKER_WASTE","Royal Waterways"},
         };
         */
+        public static List<string> bossList = new List<string>() {
+            "Giant Fly", // Gruz Mother
+            "Giant Buzzer Col", // Vengefly
+            "Mawlek Body", // Brooding Mawlek
+            "False Knight New", // False Knight
+            "False Knight Dream", // Failed Champion
+            // "Head", // maggot false knight/champion phase
+            "Hornet Boss 1", // Hornet
+            "Hornet Boss 2", // Hornet Sentinel
+            "Mega Moss Charger", // Massive Moss Charger
+            "Fluke Mother", // "Flukemarm"
+            "Mantis Lord", // "Mantis Lords" // Hp might not  show properly -- check later (divide hp by 2?)
+            // "Mantis Lord S1-S3", //
+            "Mega Fat Bee", // obblobles
+            "Hive Knight", // Hive Knight
+            "Infected Knight", // Broken Vessel
+            "Lost Kin", // Lost Kin
+            "Mimic Spider", // Nosk
+            "Hornet Nosk", // Winged Nosk
+            "Jar Collector", // The Collector
+            // "Colloseum_Armored_Roller", // God Tamer
+            "Lancer", // God Tamer
+            "Lobster", // God Tamer's Lobster
+            "Mega Zombie Beam Miner", // Crystal Guardian
+            "Zombie Beam Miner Rematch", // Enraged Guardian
+            "Mega Jellyfish", // Uumuu
+            "Mantis Traitor Lord", // Traitor Lord
+            "Grey Prince", // Grey Prince zote
+            "Grimm Boss", // Grimm
+            "Nightmare Grimm Boss", // Nightmare King Grimm
+            "HK Prime", // Pure Vessel
+            "Sly Boss", // Nailsage Sly
+            "Sheo Boss", // Paintmaster Sheo
+            "Oro", // Brothers Oro & Mato
+            "Mato", // Brothers Oro & Mato
+            "Ghost Warrior Hu", // Elder Hu
+            "Ghost Warrior Slug", // Gorb
+            "Ghost Warrior Galien", // Galien
+            "Ghost Warrior Markoth", // Markoth
+            "Ghost Warrior Xero", // Xero
+            "Ghost Warrior Marmu", // Marmu
+            "Ghost Warrior No Eyes", // Marmu
+            "Black Knight", // Watcher Knights
+            "Dung Defender", // Dung Defender
+            "White Defender", // White Defender
+            "Mage Lord", // Soul Master Phase 1
+            "Mage Lord Phase 2", // Soul Master Phase 2
+            "Dream Mage Lord", // Soul Tyrant Phase 1
+            "Dream Lord Phase 2", // Soul Tyrant Phase 2 // counting 2x? -- check
+            "Mage Knight", // Soul Warrior
+            "Absolute Radiance", // Absolute radiance
+        };
+        public static Dictionary<string, string> bossNames = new Dictionary<string, string>() {
+            { "Giant Fly", "Gruz Mother" },
+            { "Giant Buzzer Col", "Vengefly"},
+            { "Mawlek Body", "Brooding Mawlek"},
+            { "False Knight New", "False Knight"},
+            { "False Knight Dream", "Failed Champion"},
+            // { "Head", "False Knight"},
+            { "Hornet Boss 1", "Hornet"},
+            { "Hornet Boss 2", "Hornet Sentinel"},
+            { "Mega Moss Charger", "Massive Moss Charger"},
+            { "Fluke Mother", "Flukemarm"},
+            { "Mantis Lord", "Mantis Lords"},
+            { "Mantis Lord S1", "Mantis Lords"},
+            { "Mantis Lord S2", "Mantis Lords"},
+            { "Mantis Lord S3", "Mantis Lords"},
+            { "Mega Fat Bee", "obblobles"},
+            { "Hive Knight", "Hive Knight"},
+            { "Infected Knight", "Broken Vessel"},
+            { "Lost Kin", "Lost Kin"},
+            { "Mimic Spider", "Nosk"},
+            { "Hornet Nosk", "Winged Nosk"},
+            { "Jar Collector", "The Collector"},
+            // { "Colloseum_Armored_Roller", "God Tamer"},
+            { "Lancer", "God Tamer"},
+            { "Lobster", "God Tamer's Lobster"},
+            { "Mega Zombie Beam Miner", "Crystal Guardian"},
+            { "Zombie Beam Miner Rematch", "Enraged Guardian"},
+            { "Mega Jellyfish", "Uumuu"},
+            { "Mantis Traitor Lord", "Traitor Lord"},
+            { "Grey Prince", "Grey Prince zote"},
+            { "Grimm Boss", "Grimm"},
+            { "Nightmare Grimm Boss", "Nightmare King Grimm"},
+            { "HK Prime", "Pure Vessel"},
+            { "Sly Boss", "Nailsage Sly"},
+            { "Sheo Boss", "Paintmaster Sheo"},
+            { "Oro", "Brothers Oro & Mato"},
+            { "Mato", "Brothers Oro & Mato"},
+            { "Ghost Warrior Hu", "Elder Hu"},
+            { "Ghost Warrior Slug", "Gorb"},
+            { "Ghost Warrior Galien", "Galien"},
+            { "Ghost Warrior Markoth", "Markoth"},
+            { "Ghost Warrior Xero", "Xero"},
+            { "Ghost Warrior Marmu", "Marmu"},
+            { "Ghost Warrior No Eyes", "Marmu"},
+            { "Black Knight", "Watcher Knights"},
+            { "Dung Defender", "Dung Defender"},
+            { "White Defender", "White Defender"},
+            { "Mage Lord", "Soul Master"},
+            { "Mage Lord Phase 2", "Soul Master"},
+            { "Dream Mage Lord", "Soul Tyrant"},
+            { "Dream Lord Phase 2", "Soul Tyrant"},
+            { "Mage Knight", "Soul Warrior"},
+            { "Absolute Radiance", "Absolute Radiance"},
+            { "Radiance", "The Radiance"},
+            { "Hollow Knight Boss", "The Hollow Knight"},
+        };
         public static string GetSceneArea(string scene) {
             try {
                 return sceneData[scene][0];
@@ -566,6 +675,14 @@ namespace HollowKnightDiscordRPC {
             catch {
                 if (!string.IsNullOrEmpty(scene)) return scene;
                 return "Unknown Scene";
+            }
+        }
+        public static string GetBossName(string name) {
+            try {
+                return bossNames[name];
+            }
+            catch {
+                return "In Fight";
             }
         }
         public static bool IsInExcludedScenes(string scene) {

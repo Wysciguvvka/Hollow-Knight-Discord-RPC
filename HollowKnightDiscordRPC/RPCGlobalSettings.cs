@@ -3,6 +3,7 @@
         public bool ShowCurrentArea = true;
         public bool ShowSmallImage = true;
         public bool ShowMode = true;
+        public int ShowBossMode = 2;
         public int TimePlayedMode = 1; 
         public int PlayerStatus01 = 1; 
         public int PlayerStatus02 = 2;
