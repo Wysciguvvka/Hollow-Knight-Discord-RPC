@@ -72,7 +72,6 @@
     <Compile Include="Assets\DiscordGameSDK\LobbyManager.cs" />
     <Compile Include="Assets\DiscordGameSDK\StorageManager.cs" />
     <Compile Include="Assets\DiscordGameSDK\StoreManager.cs" />
-    <Compile Include="Extractor.cs" />
     <Compile Include="SceneData.cs" />
     <Compile Include="HollowKnightDiscordRPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
