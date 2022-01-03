@@ -63,6 +63,8 @@ to `HollowKnightDiscordRPC/references` folder.\
 ![Steel Soul Mode](/Previews/steel.png)
 ###### Godseeker Mode:
 ![Godseeker Mode](/Previews/godseeker.png)
+###### Panhteons:
+![Customization](/Previews/pantheon.png)
 ###### Boss Health:
 ![Customization](/Previews/bosshp.png)
 ###### Customization:

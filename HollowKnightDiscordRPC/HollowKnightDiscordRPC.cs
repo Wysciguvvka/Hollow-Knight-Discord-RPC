@@ -20,9 +20,10 @@ namespace HollowKnightDiscordRPC {
         public GameObject obj;
         public bool ToggleButtonInsideMenu => true;
         private bool gamePaused;
+        private bool inPantheon;
         private readonly DateTime startDate = DateTime.UtcNow;
         private DateTime elapsedTime = DateTime.UtcNow;
-        private int totalBossHp = 0; // potential division by 0 error
+        private int totalBossHp = 0;
         private RPCGlobalSettings GlobalSettings = new RPCGlobalSettings();
         internal MenuScreen screen;
         public static Dictionary<string, int> playerDictData = new Dictionary<string, int>() {
@@ -37,7 +38,7 @@ namespace HollowKnightDiscordRPC {
         private string currentBossName;
         private readonly List<GameObject> bosses = new List<GameObject>();
         public override string GetVersion() {
-            return "1.5.6";
+            return "1.5.7";
         }
         public void OnLoadGlobal(RPCGlobalSettings s) {
             GlobalSettings = s;
@@ -384,6 +385,7 @@ namespace HollowKnightDiscordRPC {
             return RPCState.Trim('|', ' ');
         }
         private void UpdatePlayerActivityData() {
+            // todo: rewrite the code below
             if (HeroController.instance != null) {
                 if (!GlobalSettings.HideEverything) {
                     string mode = "Hollow Knight";
@@ -393,7 +395,7 @@ namespace HollowKnightDiscordRPC {
                         else if (GameManager.instance.playerData.bossRushMode) { mode += " (Godseeker)"; largeImage = "godseeker"; }
                         else mode += " (Classic)";
                     }
-                    string currentScene = "In Game";
+                    string currentScene = "In Game ";
                     string action = null;
                     string gameState = null;
                     if (GlobalSettings.ShowCurrentArea) {
@@ -403,7 +405,8 @@ namespace HollowKnightDiscordRPC {
                             activity.Assets.SmallImage = SceneData.GetSceneImage(currentScene);
                             activity.Assets.SmallText = areaName;
                         }
-                        currentScene = SceneData.GetSceneArea(currentScene);
+                        if (!BossSequenceController.IsInSequence) { currentScene = SceneData.GetSceneArea(currentScene); }
+                        else { currentScene = SceneData.GetPantheonName(PlayerData.instance.bossReturnEntryGate); }
                     }
                     if (!GlobalSettings.ShowSmallImage || !GlobalSettings.ShowCurrentArea) {
                         activity.Assets.SmallImage = null;
@@ -418,37 +421,41 @@ namespace HollowKnightDiscordRPC {
                     activity.Timestamps = new ActivityTimestamps();
                     if (GlobalSettings.TimePlayedMode == 1 && !SceneData.IsInExcludedScenes(GameManager.instance.GetSceneNameString())) {
                         var elapsed = Math.Abs((elapsedTime - new DateTime(1970, 1, 1)).TotalSeconds);
+                        /*
+                          // * panhteon timer 
+                         if (BossSequenceController.IsInSequence) {
+                             DateTime bossTimer = DateTime.UtcNow.AddSeconds((int)(-1) * BossSequenceController.Timer);
+                             elapsed = Math.Abs((bossTimer - new DateTime(1970, 1, 1)).TotalSeconds);
+                         }
+                         */
                         activity.Timestamps.Start = (long)elapsed;
                     }
                     else if (GlobalSettings.TimePlayedMode == 2) {
                         var elapsed = Math.Abs((startDate - new DateTime(1970, 1, 1)).TotalSeconds);
                         activity.Timestamps.Start = (long)elapsed;
                     }
-                    try {
-                        if (GlobalSettings.ShowBossMode > 0 && bosses.Count > 0) { // boss.count > 0 disables 0% hp status
-                            // boss scene
-                            try {
-                                int bossPercentHp = (100 * currentBossHp) / totalBossHp;
-                                var bossStatus = $"{currentBossName}: {bossPercentHp}%";// boss name + hp
-                                if (BossSceneController.Instance != null) {
-                                    bossStatus = $": {bossPercentHp}%"; // scenes in godhome already contain boss names
-                                    if (BossSceneController.Instance.BossLevel == 1) { bossStatus += $" (Ascended)"; }
-                                    else if (BossSceneController.Instance.BossLevel == 2) { bossStatus += " (Radiant)"; }
-                                }
-                                if (GlobalSettings.ShowBossMode == 1) {
-                                    if (BossSceneController.Instance == null) { bossStatus = $" - {bossStatus}%"; }
-                                    activity.Details += bossStatus;
-                                }
-                                else if (GlobalSettings.ShowBossMode == 2) {
-                                    if (BossSceneController.Instance != null) { bossStatus = $"{currentBossName}{bossStatus}"; }
-                                    activity.State = bossStatus;
-                                }
-
+                    if (GlobalSettings.ShowBossMode > 0 && bosses.Count > 0) { // boss.count > 0 disables 0% hp status                                                                              
+                        // boss scene
+                        try {
+                            int bossPercentHp = (100 * currentBossHp) / totalBossHp;
+                            var bossStatus = $"{currentBossName}: {bossPercentHp}%"; // boss name + hp
+                            if (BossSceneController.Instance != null) { // Godhome HoG
+                                if (GlobalSettings.ShowCurrentArea) { bossStatus = $": {bossPercentHp}%"; }
+                                if (BossSceneController.Instance.BossLevel == 1) { bossStatus += $" (Ascended)"; }
+                                else if (BossSceneController.Instance.BossLevel == 2) { bossStatus += " (Radiant)"; }
                             }
-                            catch { return; }
+                            if (GlobalSettings.ShowBossMode == 1) {
+                                if (BossSequenceController.IsInSequence) { bossStatus = $" - {currentBossName}: {bossPercentHp}%"; } // Panhteons or In Game - boss name
+                                else if (GlobalSettings.ShowCurrentArea && BossSceneController.Instance == null) { bossStatus = $" - {bossStatus}%"; } // not godhome
+                                activity.Details += bossStatus;
+                            }
+                            else if (GlobalSettings.ShowBossMode == 2) {
+                                if (BossSceneController.Instance != null) { bossStatus = $"{currentBossName}: {bossPercentHp}%"; }
+                                activity.State = bossStatus;
+                            }
                         }
+                        catch { return; }
                     }
-                    catch { return; }
                 }
                 else {
                     activity.Details = "In Game";
@@ -489,7 +496,6 @@ namespace HollowKnightDiscordRPC {
             }
         }
         public override void Initialize() {
-            // foreach dll name if not exsist then install
             if (!Directory.Exists(".\\hollow_knight_Data\\Plugins")) Directory.CreateDirectory(".\\hollow_knight_Data\\Plugins");
             if (!Directory.Exists(".\\hollow_knight_Data\\Plugins\\x86_64")) Directory.CreateDirectory(".\\hollow_knight_Data\\Plugins\\x86_64");
             if (!Directory.Exists(".\\hollow_knight_Data\\Plugins\\x86")) Directory.CreateDirectory(".\\hollow_knight_Data\\Plugins\\x86");
@@ -533,7 +539,7 @@ namespace HollowKnightDiscordRPC {
             ModHooks.SetPlayerBoolHook -= OnSetPlayerBool;
             ModHooks.SetPlayerIntHook -= PlayerIntSet;
             ModHooks.HeroUpdateHook -= OnHeroUpdate;
-            // bosses
+
             ModHooks.OnEnableEnemyHook -= EnemyEnabled;
             ModHooks.OnReceiveDeathEventHook -= EnemyDied;
         }
@@ -570,41 +576,40 @@ namespace HollowKnightDiscordRPC {
                 playerDictData["grubs"] = GameManager.instance.playerData.grubsCollected;
                 playerDictData["completion"] = (int)GameManager.instance.playerData.completionPercentage;
                 playerDictData["essence"] = GameManager.instance.playerData.dreamOrbs;
-                // pause toggle
+                // toggle
                 if (GameManager.instance.IsGamePaused() && !gamePaused) { gamePaused = true; UpdatePlayerActivityData(); }
                 if (!GameManager.instance.IsGamePaused() && gamePaused) { gamePaused = false; UpdatePlayerActivityData(); }
-                try {
-                    // boss hp update stuff
-                    currentBossHp = 0;
-                    if (bosses.Count > 0) {
-                        foreach (var boss in bosses) {
-                            try {
-                                var healthManager = boss?.GetComponent<HealthManager>();
-                                currentBossHp += Math.Max(0, healthManager.hp);
-                                if (healthManager?.hp <= 0) {
-                                    bosses.Remove(boss); // removes boss from list when dead
-                                }
-                            }
-                            catch {
-                                // thrown after boss death 
-                                bosses.Remove(boss);
-                                break; // continue causes "Collection was modified; enumeration operation may not execute" errors.
+                // if (BossSequenceController.IsInSequence) { UpdatePlayerActivityData(); } // always update time when in pantheon (if on)
+                if (!BossSequenceController.IsInSequence && inPantheon) { inPantheon = false; UpdatePlayerActivityData(); }
+                if (BossSequenceController.IsInSequence && !inPantheon) { inPantheon = true; UpdatePlayerActivityData(); }
+                // boss hp update stuff
+                currentBossHp = 0;
+                if (bosses.Count > 0) {
+                    foreach (var boss in bosses) {
+                        try {
+                            var healthManager = boss?.GetComponent<HealthManager>();
+                            currentBossHp += Math.Max(0, healthManager.hp);
+                            if (healthManager?.hp <= 0) {
+                                bosses.Remove(boss); // removes boss from list when dead
                             }
                         }
-                        if (!gamePaused) {
-                            UpdatePlayerActivityData();
+                        catch {
+                            // thrown after boss death 
+                            bosses.Remove(boss);
+                            break; // continue causes "Collection was modified; enumeration operation may not execute" errors.
                         }
                     }
-                    else {
-                        currentBossName = null;
-                        totalBossHp = 0;
-                        currentBossHp = 0;
+                    if (!gamePaused) {
+                        UpdatePlayerActivityData();
                     }
-
                 }
-                catch { return; } //?
+                else {
+                    currentBossName = null;
+                    totalBossHp = 0;
+                    currentBossHp = 0;
+                }
             }
-            catch { return; } // ???
+            catch { return; }
         }
         private int PlayerIntSet(string target, int val) {
             // update presence only when needed
@@ -632,7 +637,7 @@ namespace HollowKnightDiscordRPC {
                 activityManager = discord.GetActivityManager();
                 UpdatePlayerActivityData();
             }
-            catch { return; }
+            catch { return; } // not logging due to log spam
         }
 
     }
