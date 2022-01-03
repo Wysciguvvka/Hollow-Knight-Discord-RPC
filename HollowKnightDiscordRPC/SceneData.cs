@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 namespace HollowKnightDiscordRPC {
     public class SceneData {
         public static Dictionary<string, string[]> sceneData = new Dictionary<string, string[]>() {
@@ -668,13 +669,28 @@ namespace HollowKnightDiscordRPC {
             { "Radiance", "The Radiance"},
             { "Hollow Knight Boss", "The Hollow Knight"},
         };
+        public static Dictionary<string, string> pantheons = new Dictionary<string, string>() {
+            { "door_dreamReturnGG_GG_Challenge_Door (1)", "Pantheon of The Master"},
+            { "door_dreamReturnGG_GG_Challenge_Door (2)", "Pantheon of The Artist"},
+            { "door_dreamReturnGG_GG_Challenge_Door (3)", "Pantheon of The Sage"},
+            { "door_dreamReturnGG_GG_Challenge_Door (4)", "Pantheon of The Knight"},
+            { "door_dreamReturnGG_GG_Final_Challenge_Door", "Pantheon of Hallownest"},
+        };
+        public static string GetPantheonName(string name) {
+            try {
+                return pantheons[name];
+            }
+            catch {
+                return "Godhome";
+            }
+        }
         public static string GetSceneArea(string scene) {
             try {
                 return sceneData[scene][0];
             }
             catch {
                 if (!string.IsNullOrEmpty(scene)) return scene;
-                return "Unknown Scene";
+                return "In Game";
             }
         }
         public static string GetBossName(string name) {
@@ -682,7 +698,7 @@ namespace HollowKnightDiscordRPC {
                 return bossNames[name];
             }
             catch {
-                return "In Fight";
+                return name;
             }
         }
         public static bool IsInExcludedScenes(string scene) {
@@ -707,7 +723,7 @@ namespace HollowKnightDiscordRPC {
                 return sceneData[scene][2];
             }
             catch {
-                return "null";
+                return null;
             }
         }
     }
