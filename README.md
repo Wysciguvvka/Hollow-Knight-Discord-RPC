@@ -1,20 +1,20 @@
 
 # Hollow Knight Discord Rich Presence Mod
 Hollow Knight Discord Rich Presence Mod (or Discord Custom Status mod) adds custom Hollow Knight In-Game Status to your Discord activity.\
-This modification is for Hollow Knight __1.5__ or above.\
+This modification is for Hollow Knight __1.5__.\
 \
 ![Preview](/Previews/presence.png)
 
 ## Feedback/Bug Reports/Suggestions
 
-If you have any feedback/suggestion or you've found a bug, please reach me on\
+If you have any feedback/suggestions or you've found a bug, please reach me on\
 Discord: __@Wysciguwka#8823__
 
 
 ## Installation
 1. Install the [modding api](https://github.com/hk-modding/api) if you haven't installed it.
-2. Download the latest mod release from [here](https://github.com/Wysciguvvka/Hollow-Knight-Discord-RPC/releases) or build it by yourself.
-3. Extract the .zip file and copy the __DiscordRPC__ folder into mods folder
+2. Download the latest mod release from [here](https://github.com/Wysciguvvka/Hollow-Knight-Discord-RPC/releases) or build it yourself.
+3. Extract the .zip file and copy the __DiscordRPC__ folder into the mods folder
 (Usually):
 
 ``` 
@@ -32,14 +32,15 @@ or:
 Launch Hollow Knight after installation.\
 If you opened Discord after launching Hollow Knight, it might take a few seconds to display custom status.
 The mod will not work with the Discord browser client.\
-If you want to customize the mod, then navigate to Settings > Mods > Rich Presence.
+If you want to customize the mod, then navigate to Settings > Mods > Rich Presence.\
+Keep in mind that Discord GameSDK has a rate limit of one update per 15 seconds, so it may take a while to update your status.
 
 
 ## How to build
 
 To build the mod by yourself:
-1. Clone the repository
-2. `From Hollow_Knight_Data` folder (in your Hollow Knight installation) copy:
+1. Clone the repository.
+2. From the `Hollow_Knight_Data` folder in your Hollow Knight installation, copy:
 ```
 Assembly-CSharp.dll
 UnityEngine.CoreModule.dll
@@ -48,9 +49,9 @@ UnityEngine.TextRenderingModule.dll
 UnityEngine.UI.dll
 UnityEngine.UIModule.dll
 ```
-to `HollowKnightDiscordRPC/references` folder.\
-3. download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) and copy the `x86` and `x86_64` folders into `Assets/Plugins`\
-4. Build the solution using an IDE or `dotnet build`.\
+into the `HollowKnightDiscordRPC/references` folder.\
+3. Download [Discord GameSDK](https://discord.com/developers/docs/game-sdk/sdk-starter-guide) and copy the `x86` and `x86_64` folders into `Assets/Plugins`\
+4. Build the solution.\
 5. The result will be in `bin/Release/HollowKnightDiscordRPC.dll (or bin/debug/)`
 
 ## Mod Preview
