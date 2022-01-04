@@ -160,8 +160,8 @@ namespace HollowKnightDiscordRPC {
             {"Dream_Backer_Shrine", new string[3] { "Dream Realm - Shrine of Believers", "Dream Realm", "dream"}},
             {"Dream_Room_Believer_Shrine", new string[3] { "Dream Realm - Shrine of Believers", "Dream Realm", "dream"}},
             {"Dream_Abyss", new string[3] { "Dream Realm - Birthplace ", "Dream Realm", "dream"}},
-            {"Dream_Final_Boss", new string[3] { "The Radiance", "Dream Realm", "dream"}},
-            {"Dream_Final", new string[3] { "The Radiance", "Dream Realm", "dream"}},
+            {"Dream_Final_Boss", new string[3] { "Dream Realm - The Radiance", "Dream Realm", "dream"}},
+            {"Dream_Final", new string[3] { "Dream Realm - The Radiance", "Dream Realm", "dream"}},
             {"Fungus3_01", new string[3] { "Fog Canyon", "Fog Canyon", "canyon"}},
             {"Fungus3_02", new string[3] { "Fog Canyon", "Fog Canyon", "canyon"}},
             {"Fungus3_03", new string[3] { "Fog Canyon", "Fog Canyon", "canyon"}},
@@ -224,7 +224,7 @@ namespace HollowKnightDiscordRPC {
             {"Crossroads_49b", new string[3] { "Forgotten Crossroads", "Forgotten Crossroads", "crossroads"}},
             {"Crossroads_52", new string[3] { "Forgotten Crossroads", "Forgotten Crossroads", "crossroads"}},
             {"Room_Final_Boss_Atrium", new string[3] {"Black Egg Temple", "Forgotten Crossroads", "crossroads"}},
-            {"Room_Final_Boss_Core", new string[3] {"The Hollow Knight", "Forgotten Crossroads", "crossroads"}},
+            {"Room_Final_Boss_Core", new string[3] { "Black Egg Temple - The Hollow Knight", "Forgotten Crossroads", "crossroads"}},
             {"Fungus2_01", new string[3] { "Fungal Wastes - Queen's Station", "Fungal Wastes", "fungus"}},
             {"Fungus2_02", new string[3] { "Fungal Wastes - Queen's Station", "Fungal Wastes", "fungus"}},
             {"Fungus2_03", new string[3] { "Fungal Wastes", "Fungal Wastes", "fungus"}},
@@ -612,6 +612,8 @@ namespace HollowKnightDiscordRPC {
             "Dream Lord Phase 2", // Soul Tyrant Phase 2 // counting 2x? -- check
             "Mage Knight", // Soul Warrior
             "Absolute Radiance", // Absolute radiance
+            "Radiance",
+            "Hollow Knight Boss"
         };
         public static Dictionary<string, string> bossNames = new Dictionary<string, string>() {
             { "Giant Fly", "Gruz Mother" },

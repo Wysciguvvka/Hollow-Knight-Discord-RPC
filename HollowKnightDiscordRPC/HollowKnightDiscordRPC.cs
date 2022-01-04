@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Discord;
-using GlobalEnums;
 using Modding;
 using Modding.Menu;
 using Modding.Menu.Config;
@@ -16,29 +15,20 @@ namespace HollowKnightDiscordRPC {
         public HollowKnightDiscordRPC() : base("Rich Presence") { }
         public Discord.Discord discord = null;
         public ActivityManager activityManager;
-        public Activity activity = new Activity();
         public GameObject obj;
         public bool ToggleButtonInsideMenu => true;
-        private bool gamePaused;
-        private bool inPantheon;
-        private readonly DateTime startDate = DateTime.UtcNow;
-        private DateTime elapsedTime = DateTime.UtcNow;
+        public Activity activity = new Activity();
+        private Activity _activity;
         private int totalBossHp = 0;
-        private RPCGlobalSettings GlobalSettings = new RPCGlobalSettings();
-        internal MenuScreen screen;
-        public static Dictionary<string, int> playerDictData = new Dictionary<string, int>() {
-            { "geo" , 0 },
-            { "soul" , 0 },
-            { "health" , 0 },
-            { "maxhealth" , 0 },
-            { "grubs" , 0 },
-            { "essence" , 0 },
-        };
         private int currentBossHp;
         private string currentBossName;
+        private readonly DateTime startDate = DateTime.UtcNow;
+        private DateTime elapsedTime = DateTime.UtcNow;
         private readonly List<GameObject> bosses = new List<GameObject>();
+        private RPCGlobalSettings GlobalSettings = new RPCGlobalSettings();
+        internal MenuScreen screen;
         public override string GetVersion() {
-            return "1.5.7";
+            return "1.5.8";
         }
         public void OnLoadGlobal(RPCGlobalSettings s) {
             GlobalSettings = s;
@@ -345,25 +335,25 @@ namespace HollowKnightDiscordRPC {
                 case 0:
                     break;
                 case 1:
-                    combinedState = $"HP: {playerDictData["health"]}/{playerDictData["maxhealth"]}";
+                    combinedState = $"HP: {GameManager.instance.playerData.health}/{GameManager.instance.playerData.maxHealth}";
                     break;
                 case 2:
-                    combinedState = $"Soul: {playerDictData["soul"]}";
+                    combinedState = $"Soul: {GameManager.instance.playerData.MPCharge}";
                     break;
                 case 3:
-                    combinedState = $"Geo: {playerDictData["geo"]}";
+                    combinedState = $"Geo: {GameManager.instance.playerData.geo}";
                     break;
                 case 4:
-                    combinedState = $"Grubs: {playerDictData["grubs"]}";
+                    combinedState = $"Grubs: {GameManager.instance.playerData.grubsCollected}";
                     break;
                 case 5:
-                    if (GameManager.instance.playerData.unlockedCompletionRate) { combinedState = $"{playerDictData["completion"]}%"; }
+                    if (GameManager.instance.playerData.unlockedCompletionRate) { combinedState = $"{GameManager.instance.playerData.completionPercentage}%"; }
                     break;
                 case 6:
                     if (!GameManager.instance.playerData.xunFlowerBroken && GameManager.instance.playerData.hasXunFlower) { combinedState = $"Delicate Flower"; }
                     break;
                 case 7:
-                    combinedState = $"Essence: {playerDictData["essence"]}";
+                    combinedState = $"Essence: {GameManager.instance.playerData.dreamOrbs}";
                     break;
                 case 8:
                     if (GameManager.instance.playerData.hasHuntersMark) { combinedState = $"Hunter's Mark"; }
@@ -398,9 +388,10 @@ namespace HollowKnightDiscordRPC {
                     string currentScene = "In Game ";
                     string action = null;
                     string gameState = null;
+                    string areaName = null;
                     if (GlobalSettings.ShowCurrentArea) {
                         currentScene = GameManager.instance.GetSceneNameString();
-                        string areaName = SceneData.GetAreaName(currentScene);
+                        areaName = SceneData.GetAreaName(currentScene);
                         if (!SceneData.IsInExcludedScenes(currentScene)) {
                             activity.Assets.SmallImage = SceneData.GetSceneImage(currentScene);
                             activity.Assets.SmallText = areaName;
@@ -421,13 +412,6 @@ namespace HollowKnightDiscordRPC {
                     activity.Timestamps = new ActivityTimestamps();
                     if (GlobalSettings.TimePlayedMode == 1 && !SceneData.IsInExcludedScenes(GameManager.instance.GetSceneNameString())) {
                         var elapsed = Math.Abs((elapsedTime - new DateTime(1970, 1, 1)).TotalSeconds);
-                        /*
-                          // * panhteon timer 
-                         if (BossSequenceController.IsInSequence) {
-                             DateTime bossTimer = DateTime.UtcNow.AddSeconds((int)(-1) * BossSequenceController.Timer);
-                             elapsed = Math.Abs((bossTimer - new DateTime(1970, 1, 1)).TotalSeconds);
-                         }
-                         */
                         activity.Timestamps.Start = (long)elapsed;
                     }
                     else if (GlobalSettings.TimePlayedMode == 2) {
@@ -438,19 +422,18 @@ namespace HollowKnightDiscordRPC {
                         // boss scene
                         try {
                             int bossPercentHp = (100 * currentBossHp) / totalBossHp;
-                            var bossStatus = $"{currentBossName}: {bossPercentHp}%"; // boss name + hp
-                            if (BossSceneController.Instance != null) { // Godhome HoG
-                                if (GlobalSettings.ShowCurrentArea) { bossStatus = $": {bossPercentHp}%"; }
-                                if (BossSceneController.Instance.BossLevel == 1) { bossStatus += $" (Ascended)"; }
-                                else if (BossSceneController.Instance.BossLevel == 2) { bossStatus += " (Radiant)"; }
+                            string bossStatus = null;
+                            if (BossSceneController.Instance != null) {  // HoG
+                                if (BossSceneController.Instance.BossLevel == 1) { bossStatus = $"(Ascended)"; }
+                                else if (BossSceneController.Instance.BossLevel == 2) { bossStatus = "(Radiant)"; }
                             }
-                            if (GlobalSettings.ShowBossMode == 1) {
-                                if (BossSequenceController.IsInSequence) { bossStatus = $" - {currentBossName}: {bossPercentHp}%"; } // Panhteons or In Game - boss name
-                                else if (GlobalSettings.ShowCurrentArea && BossSceneController.Instance == null) { bossStatus = $" - {bossStatus}%"; } // not godhome
-                                activity.Details += bossStatus;
+                            if (GlobalSettings.ShowBossMode == 1) { // at area
+                                if (GlobalSettings.ShowCurrentArea && currentScene.EndsWith(currentBossName)) { bossStatus = $"{activity.Details}: {bossPercentHp}% {bossStatus}"; }
+                                else { bossStatus = $"{activity.Details} - {currentBossName}: {bossPercentHp}% {bossStatus}"; }
+                                activity.Details = bossStatus;
                             }
                             else if (GlobalSettings.ShowBossMode == 2) {
-                                if (BossSceneController.Instance != null) { bossStatus = $"{currentBossName}: {bossPercentHp}%"; }
+                                bossStatus = $"{currentBossName}: {bossPercentHp}% {bossStatus}";
                                 activity.State = bossStatus;
                             }
                         }
@@ -479,7 +462,10 @@ namespace HollowKnightDiscordRPC {
                 }
             }
             try {
-                activityManager.UpdateActivity(activity, (res) => { });
+                if (!activity.Equals(_activity)) {
+                    _activity = activity;
+                    activityManager.UpdateActivity(activity, (res) => { });
+                }
             }
             catch (Exception) {
                 discord = null;
@@ -509,20 +495,15 @@ namespace HollowKnightDiscordRPC {
             obj = new GameObject();
             obj.AddComponent<Updater>().RegisterMod(this);
             UnityEngine.Object.DontDestroyOnLoad(obj);
-            // UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneLoaded;
             InitDiscord();
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnSceneChanged;
-            ModHooks.SetPlayerBoolHook += OnSetPlayerBool;
-            ModHooks.SetPlayerIntHook += PlayerIntSet;
             ModHooks.HeroUpdateHook += OnHeroUpdate;
-            // bosses
-            ModHooks.OnEnableEnemyHook += EnemyEnabled; // called on enemy spawn
-            ModHooks.OnReceiveDeathEventHook += EnemyDied;
-            // 
+            ModHooks.OnEnableEnemyHook += EnemyEnabled;
         }
         public void Update() {
             try {
                 if (discord is null || activityManager is null) { InitDiscord(); return; }
+                UpdatePlayerActivityData();
                 discord.RunCallbacks();
             }
             catch (Exception e) {
@@ -536,12 +517,8 @@ namespace HollowKnightDiscordRPC {
             discord?.Dispose();
             discord = null;
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnSceneChanged;
-            ModHooks.SetPlayerBoolHook -= OnSetPlayerBool;
-            ModHooks.SetPlayerIntHook -= PlayerIntSet;
             ModHooks.HeroUpdateHook -= OnHeroUpdate;
-
             ModHooks.OnEnableEnemyHook -= EnemyEnabled;
-            ModHooks.OnReceiveDeathEventHook -= EnemyDied;
         }
         private bool EnemyEnabled(GameObject enemy, bool isDead) {
             try {
@@ -553,54 +530,26 @@ namespace HollowKnightDiscordRPC {
                         currentBossHp += healthManager.hp;
                         bosses.Add(enemy);
                         currentBossName = SceneData.GetBossName(enemy.name);
-                        UpdatePlayerActivityData();
                     }
-                    return isDead;
                 }
                 return isDead;
             }
             catch { return isDead; }
         }
-        private void EnemyDied(EnemyDeathEffects enemyDeathEffects, bool eventAlreadyRecieved,
-                       ref float? attackDirection, ref bool resetDeathEvent,
-                       ref bool spellBurn, ref bool isWatery) {
-            UpdatePlayerActivityData();
-        }
         private void OnHeroUpdate() {
             try {
-                // making sure that stats will be up to date at launch
-                playerDictData["geo"] = GameManager.instance.playerData.geo;
-                // playerDictData["soul"] = GameManager.instance.playerData.MPCharge; // updating soul here is not necessary
-                playerDictData["health"] = GameManager.instance.playerData.health;
-                playerDictData["maxhealth"] = GameManager.instance.playerData.maxHealth;
-                playerDictData["grubs"] = GameManager.instance.playerData.grubsCollected;
-                playerDictData["completion"] = (int)GameManager.instance.playerData.completionPercentage;
-                playerDictData["essence"] = GameManager.instance.playerData.dreamOrbs;
-                // toggle
-                if (GameManager.instance.IsGamePaused() && !gamePaused) { gamePaused = true; UpdatePlayerActivityData(); }
-                if (!GameManager.instance.IsGamePaused() && gamePaused) { gamePaused = false; UpdatePlayerActivityData(); }
-                // if (BossSequenceController.IsInSequence) { UpdatePlayerActivityData(); } // always update time when in pantheon (if on)
-                if (!BossSequenceController.IsInSequence && inPantheon) { inPantheon = false; UpdatePlayerActivityData(); }
-                if (BossSequenceController.IsInSequence && !inPantheon) { inPantheon = true; UpdatePlayerActivityData(); }
-                // boss hp update stuff
-                currentBossHp = 0;
                 if (bosses.Count > 0) {
+                    currentBossHp = 0;
                     foreach (var boss in bosses) {
                         try {
                             var healthManager = boss?.GetComponent<HealthManager>();
                             currentBossHp += Math.Max(0, healthManager.hp);
-                            if (healthManager?.hp <= 0) {
-                                bosses.Remove(boss); // removes boss from list when dead
-                            }
+                            if (healthManager?.hp <= 0) { bosses.Remove(boss); } // removes boss from list when dead
                         }
-                        catch {
-                            // thrown after boss death 
+                        catch { // thrown after boss death 
                             bosses.Remove(boss);
-                            break; // continue causes "Collection was modified; enumeration operation may not execute" errors.
+                            break; // continue causes "Collection was modified; enumeration operation may not execute" error.
                         }
-                    }
-                    if (!gamePaused) {
-                        UpdatePlayerActivityData();
                     }
                 }
                 else {
@@ -611,26 +560,11 @@ namespace HollowKnightDiscordRPC {
             }
             catch { return; }
         }
-        private int PlayerIntSet(string target, int val) {
-            // update presence only when needed
-            if (target == "geo") { playerDictData["geo"] = val; UpdatePlayerActivityData(); }
-            if (target == "MPCharge") { playerDictData["soul"] = val; UpdatePlayerActivityData(); }
-            if (target == "health") { playerDictData["health"] = val; UpdatePlayerActivityData(); }
-            if (target == "maxHealth") { playerDictData["maxhealth"] = val; UpdatePlayerActivityData(); } //health regens when acquired new mask (afaik) so probably not needed - chceck pls?
-            if (target == "grubsCollected") { playerDictData["grubs"] = val; UpdatePlayerActivityData(); }
-            return val;
-        }
-        private bool OnSetPlayerBool(string target, bool val) {
-            if (target == "atBench") UpdatePlayerActivityData();
-            if (target == "disablePause") UpdatePlayerActivityData();
-            return val;
-        }
         private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to) {
             elapsedTime = DateTime.UtcNow;
             UpdatePlayerActivityData();
         }
         private void InitDiscord() {
-            // discord?.Dispose();
             try {
                 discord?.Dispose();
                 discord = new Discord.Discord(925354823304507433, (System.UInt64)CreateFlags.NoRequireDiscord);
@@ -639,7 +573,6 @@ namespace HollowKnightDiscordRPC {
             }
             catch { return; } // not logging due to log spam
         }
-
     }
     public class Updater : MonoBehaviour {
         public HollowKnightDiscordRPC mod;
