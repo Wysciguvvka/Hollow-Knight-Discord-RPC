@@ -417,9 +417,9 @@ namespace HollowKnightDiscordRPC {
                     else if (GlobalSettings.TimePlayedMode == 2) {
                         var elapsed = Math.Abs((startDate - new DateTime(1970, 1, 1)).TotalSeconds);
                         activity.Timestamps.Start = (long)elapsed;
-                    }
+                    }                   
                     if (GlobalSettings.ShowBossMode > 0 && bosses.Count > 0) { // boss.count > 0 disables 0% hp status                                                                              
-                        // boss scene
+                        // boss scene                       
                         try {
                             int bossPercentHp = (100 * currentBossHp) / totalBossHp;
                             string bossStatus = null;
@@ -537,28 +537,26 @@ namespace HollowKnightDiscordRPC {
             catch { return isDead; }
         }
         private void OnHeroUpdate() {
-            try {
-                if (bosses.Count > 0) {
-                    currentBossHp = 0;
-                    foreach (var boss in bosses) {
-                        try {
-                            var healthManager = boss?.GetComponent<HealthManager>();
-                            currentBossHp += Math.Max(0, healthManager.hp);
-                            if (healthManager?.hp <= 0) { bosses.Remove(boss); } // removes boss from list when dead
-                        }
-                        catch { // thrown after boss death 
-                            bosses.Remove(boss);
-                            break; // continue causes "Collection was modified; enumeration operation may not execute" error.
-                        }
+            if (bosses.Count > 0) {
+                currentBossHp = 0;
+                foreach (var boss in bosses) {
+                    try {
+                        var healthManager = boss.GetComponent<HealthManager>();
+                        currentBossHp += Math.Max(0, healthManager.hp);
+                        if (healthManager.hp <= 0) { bosses.Remove(boss); break; } // removes boss from list when dead
+                    }
+                    catch(Exception) { // thrown after boss death 
+                        bosses.Remove(boss);
+                        break; // continue causes "Collection was modified; enumeration operation may not execute" error.
                     }
                 }
-                else {
-                    currentBossName = null;
-                    totalBossHp = 0;
-                    currentBossHp = 0;
-                }
             }
-            catch { return; }
+            else {
+                currentBossName = null;
+                totalBossHp = 0;
+                currentBossHp = 0;
+            }
+
         }
         private void OnSceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to) {
             elapsedTime = DateTime.UtcNow;

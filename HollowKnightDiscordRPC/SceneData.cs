@@ -82,7 +82,7 @@ namespace HollowKnightDiscordRPC {
             {"Mines_03", new string[3] { "Crystal Peak", "Crystal Peak", "mines"}},
             {"Mines_04", new string[3] { "Crystal Peak", "Crystal Peak", "mines"}},
             {"Mines_05", new string[3] { "Crystal Peak", "Crystal Peak", "mines"}},
-            {"Mines_06", new string[3] { "Crystal Peak - Crystal Heart", "Crystal Peak", "mines"}},
+            {"Mines_06", new string[3] { "Crystal Peak - Crystal Heart", "Crystal Peak", "mines"}}, // not crystal heart?
             {"Mines_07", new string[3] { "Crystal Peak", "Crystal Peak", "mines"}},
             {"Mines_10", new string[3] { "Crystal Peak", "Crystal Peak", "mines"}},
             {"Mines_11", new string[3] { "Crystal Peak", "Crystal Peak", "mines"}},
@@ -294,21 +294,21 @@ namespace HollowKnightDiscordRPC {
             {"Fungus1_36", new string[3] { "Greenpath - Stone Sanctuary", "Greenpath", "greenpath"}},
             {"Fungus1_37", new string[3] { "Greenpath", "Greenpath", "greenpath"}},
             {"Fungus1_Slug", new string[3] { "Greenpath - Lake of Unn", "Greenpath", "greenpath"}},
-            {"Room_nailmaster", new string[3] { "Howling Cliffs - Mato's Hut", "Howling Cliffs", "cliffs"}}, // add area
+            {"Room_nailmaster", new string[3] { "Howling Cliffs - Mato's Hut", "Howling Cliffs", "cliffs"}},
             {"Cliffs_01", new string[3] { "Howling Cliffs", "Howling Cliffs", "cliffs"}},
             {"Cliffs_02", new string[3] { "Howling Cliffs", "Howling Cliffs", "cliffs"}},
             {"Cliffs_03", new string[3] { "Howling Cliffs - Stag Nest", "Howling Cliffs", "cliffs"}},
             {"Cliffs_04", new string[3] { "Howling Cliffs", "Howling Cliffs", "cliffs"}},
             {"Cliffs_05", new string[3] { "Howling Cliffs - Joni's Repose", "Howling Cliffs", "cliffs"}},
             {"Cliffs_06", new string[3] { "Howling Cliffs", "Howling Cliffs", "cliffs"}},
-            {"Room_nailmaster_03", new string[3] { "Kingdom's Edge - Oro's Hut", "Kingdom's Edge", "edge"}}, // add area
+            {"Room_nailmaster_03", new string[3] { "Kingdom's Edge - Oro's Hut", "Kingdom's Edge", "edge"}},
             {"Room_Colosseum_01", new string[3] { "Kingdom's Edge - Colosseum of Fools", "Kingdom's Edge", "edge"}},
             {"Room_Colosseum_02", new string[3] {"Kingdom's Edge - Colosseum of Fools", "Kingdom's Edge", "edge"}},
             {"Room_Colosseum_Bronze", new string[3] { "Kingdom's Edge - Trial of the Warrior", "Kingdom's Edge", "edge"}},
             {"Room_Colosseum_Silver", new string[3] { "Kingdom's Edge - Trial of the Conqueror", "Kingdom's Edge", "edge"}},
             {"Room_Colosseum_Gold", new string[3] { "Kingdom's Edge - Trial of the Fool", "Kingdom's Edge", "edge"}},
             {"Room_Colosseum_Spectate", new string[3] { "Kingdom's Edge - Colosseum of Fools", "Kingdom's Edge", "edge"}},
-            {"Deepnest_East_01", new string[3] { "Kingdom's Edge", "Kingdom's Edge", "edge"}}, // edge
+            {"Deepnest_East_01", new string[3] { "Kingdom's Edge", "Kingdom's Edge", "edge"}},
             {"Deepnest_East_02", new string[3] { "Kingdom's Edge", "Kingdom's Edge", "edge"}},
             {"Deepnest_East_03", new string[3] { "Kingdom's Edge", "Kingdom's Edge", "edge"}},
             {"Deepnest_East_04", new string[3] { "Kingdom's Edge", "Kingdom's Edge", "edge"}},
@@ -584,6 +584,7 @@ namespace HollowKnightDiscordRPC {
             // "Colloseum_Armored_Roller", // God Tamer
             "Lancer", // God Tamer
             "Lobster", // God Tamer's Lobster
+            "Mega Zombie Beam Miner (1)",
             "Mega Zombie Beam Miner", // Crystal Guardian
             "Zombie Beam Miner Rematch", // Enraged Guardian
             "Mega Jellyfish", // Uumuu
@@ -641,6 +642,7 @@ namespace HollowKnightDiscordRPC {
             { "Lancer", "God Tamer"},
             { "Lobster", "God Tamer's Lobster"},
             { "Mega Zombie Beam Miner", "Crystal Guardian"},
+            { "Mega Zombie Beam Miner (1)", "Crystal Guardian"},
             { "Zombie Beam Miner Rematch", "Enraged Guardian"},
             { "Mega Jellyfish", "Uumuu"},
             { "Mantis Traitor Lord", "Traitor Lord"},
